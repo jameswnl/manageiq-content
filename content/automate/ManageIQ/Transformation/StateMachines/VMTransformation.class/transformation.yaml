@@ -10,19 +10,9 @@ object:
   fields:
   - state_machine_phase:
       value: transformation
-  - cleanup_state_machine:
-      value: "/Transformation/StateMachines/VMTransformation/TransformationCleanup"
-  - State2:
-      value: "/Transformation/Common/AssessTransformation"
-      on_entry: /Transformation/TransformationThrottler.Watch ; /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight
-        => 1, description => "Assess Migration", task_message => "Validating")
-      on_exit: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight => 1, description
-        => "Assess Migration", task_message => "Validating")
-      on_error: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight => 1, description
-        => "Assess Migration", task_message => "Validating")
   - State5:
       value: "/Transformation/Common/AcquireTransformationHost"
-      on_entry: /Transformation/TransformationThrottler.Watch ; /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight
+      on_entry: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight
         => 1, description => "Acquire Transformation Host", task_message => "Pre-migration")
       on_exit: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight => 1, description
         => "Acquire Transformation Host", task_message => "Pre-migration")
@@ -31,7 +21,7 @@ object:
       max_retries: '86400'
   - State8:
       value: "/Transformation/StateMachines/VMTransformation/PreTransform?state_ancestry=${#state_ancestry}/${#ae_state}"
-      on_entry: /Transformation/TransformationThrottler.Watch ; /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight
+      on_entry: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight
         => 2, description => "Pre Transform VM")
       on_exit: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight => 2, description
         => "Pre Transform VM")
@@ -39,7 +29,7 @@ object:
         => "Pre Transform VM")
   - State11:
       value: "/Transformation/StateMachines/VMTransformation/Transform?state_ancestry=${#state_ancestry}/${#ae_state}"
-      on_entry: /Transformation/TransformationThrottler.Watch ; /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight
+      on_entry: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight
         => 85, description => "Transform VM")
       on_exit: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight => 85, description
         => "Transform VM")
@@ -47,7 +37,7 @@ object:
         => "Transform VM")
   - State14:
       value: "/Transformation/StateMachines/VMTransformation/PostTransform?state_ancestry=${#state_ancestry}/${#ae_state}"
-      on_entry: /Transformation/TransformationThrottler.Watch ; /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight
+      on_entry: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight
         => 10, description => "Post Transform VM")
       on_exit: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight => 10, description
         => "Post Transform VM")

@@ -30,7 +30,7 @@ module ManageIQ
           end
 
           def main
-            @task.get_conversion_state
+            # @task.get_conversion_state is not being initiated from InfraMigrationJob
 
             case @task.get_option(:virtv2v_status)
             when 'active'
