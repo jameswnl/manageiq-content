@@ -11,7 +11,7 @@ object:
   - state_machine_phase:
       value: transformation
   - State5:
-      value: "/Transformation/Common/AcquireTransformationHost"
+      value: "/Transformation/Common/PreflightCheck"
       on_entry: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight
         => 1, description => "Acquire Transformation Host", task_message => "Pre-migration")
       on_exit: /System/CommonMethods/MiqAe.WeightedUpdateStatus(weight => 1, description
